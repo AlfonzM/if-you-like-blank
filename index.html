@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+</head>
+<body>
+	<form id="search-artist">
+
+		<h1>Type your favorite artist</h1>
+		<input type="text" id="query" value="" />
+		<input type="submit" value="Search" id="search">
+
+	</form>
+
+	<div id="results">
+
+	</div>
+	<script>
+	var searchArtist = function(query){
+		results = document.getElementById('results');
+
+	    $.ajax({
+	        url: 'https://api.spotify.com/v1/search',
+	        data: {
+	            q: query,
+	            type: 'artist'
+	        },
+
+	        success: function (response) {
+
+	       		results.innerHTML = response.artists.items[0].name;
+	        }
+	    });
+	};
+
+	$(document).ready(function(){
+		$("#search-artist").submit(function(e){
+			e.preventDefault();
+			searchArtist($("#query").val());
+			return false;
+		});
+	});
+
+	</script>
+</body>
+</html>
