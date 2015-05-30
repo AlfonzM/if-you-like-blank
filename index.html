@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="http://code.jquery.com/ui/jquery-ui-git.js"></script>-->
+
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  
 </head>
 <body>
 	<form id="search-artist">
@@ -16,8 +23,11 @@
 
 	</div>
 	<script>
-	var searchArtist = function(query){
+	var searchArtist = function(){
 		results = document.getElementById('results');
+		results.innerHTML = "";
+
+		var query = $("#query").val();
 
 	    $.ajax({
 	        url: 'https://api.spotify.com/v1/search',
@@ -27,16 +37,43 @@
 	        },
 
 	        success: function (response) {
-
-	       		results.innerHTML = response.artists.items[0].name;
+	        	for(i = 0 ; i < response.artists.items.length; i++){
+	       			results.innerHTML += response.artists.items[i].name + "<br>";
+	        	}
 	        }
 	    });
 	};
 
-	$(document).ready(function(){
+	$(function(){
+		$("#query").autocomplete({
+			source: function(request, response){
+						$.ajax({
+					        url: 'https://api.spotify.com/v1/search',
+					        data: {
+					            q: $("#query").val(),
+					            type: 'artist'
+					        },
+
+					        success: function (data) {
+					        	var results = [];
+					        	for(i = 0 ; i < data.artists.items.length; i++){
+					       			results.push(data.artists.items[i].name);
+					        	}
+					        	response(results);
+					        }
+
+					    });
+					},
+			select: function(){
+				searchArtist();
+				$( ".selector" ).autocomplete("close");
+			}
+		});
+
 		$("#search-artist").submit(function(e){
 			e.preventDefault();
-			searchArtist($("#query").val());
+			searchArtist();
+			$("#query").autocomplete("close");
 			return false;
 		});
 	});
