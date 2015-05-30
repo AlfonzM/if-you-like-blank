@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-	<script src="http://code.jquery.com/ui/jquery-ui-git.js"></script>-->
-
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -13,71 +9,14 @@
 <body>
 	<form id="search-artist">
 
-		<h1>Type your favorite artist</h1>
+		<h1>Search an artist</h1>
 		<input type="text" id="query" value="" />
 		<input type="submit" value="Search" id="search">
 
 	</form>
 
-	<div id="results">
+	<div id="results"></div>
 
-	</div>
-	<script>
-	var searchArtist = function(){
-		results = document.getElementById('results');
-		results.innerHTML = "";
-
-		var query = $("#query").val();
-
-	    $.ajax({
-	        url: 'https://api.spotify.com/v1/search',
-	        data: {
-	            q: query,
-	            type: 'artist'
-	        },
-
-	        success: function (response) {
-	        	for(i = 0 ; i < response.artists.items.length; i++){
-	       			results.innerHTML += response.artists.items[i].name + "<br>";
-	        	}
-	        }
-	    });
-	};
-
-	$(function(){
-		$("#query").autocomplete({
-			source: function(request, response){
-						$.ajax({
-					        url: 'https://api.spotify.com/v1/search',
-					        data: {
-					            q: $("#query").val(),
-					            type: 'artist'
-					        },
-
-					        success: function (data) {
-					        	var results = [];
-					        	for(i = 0 ; i < data.artists.items.length; i++){
-					       			results.push(data.artists.items[i].name);
-					        	}
-					        	response(results);
-					        }
-
-					    });
-					},
-			select: function(){
-				searchArtist();
-				$( ".selector" ).autocomplete("close");
-			}
-		});
-
-		$("#search-artist").submit(function(e){
-			e.preventDefault();
-			searchArtist();
-			$("#query").autocomplete("close");
-			return false;
-		});
-	});
-
-	</script>
+	<script src="script.js"></script>
 </body>
 </html>
