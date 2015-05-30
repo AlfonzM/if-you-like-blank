@@ -1,21 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href="style.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<title>If You Like Blank</title>
 </head>
 <body>
-	<form id="search-artist">
+	<center>
+		<form id="search-artist">
+			<input type="text" id="query" value="" />
+			<!-- <input type="submit" value="Search" id="search"> -->
 
-		<h1>Search an artist</h1>
-		<input type="text" id="query" value="" />
-		<input type="submit" value="Search" id="search">
+		</form>
 
-	</form>
+		<div id="results">
+			<h3 id="selected-artist-name"></h3>
+			<b id="artist-name">Type an artist in the search box</b><br>
+			<img id="artist-photo" src=""><br>
+			<span id="now-playing"></span>
+		</div>
 
-	<div id="results"></div>
+		<br>
+		<br>
+
+		<a href="#" id="play-another-song">Play another song</a>
+		<p>OR</p>
+		<a href="#" id="select-another-artist">Check out another artist</a>
+	</center>
 
 	<script src="script.js"></script>
 </body>

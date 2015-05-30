@@ -1,0 +1,13 @@
+body{
+	background-color: #fafafa;
+	padding-top: 50px;
+}
+
+#results{
+	padding-top: 20px;
+}
+
+#artist-photo{
+	max-height: 200px;
+	border-radius: 10px;
+}
